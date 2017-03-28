@@ -8,6 +8,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
+using App.Metrics.Configuration;
+using App.Metrics.Reporting.Interfaces;
+using App.Metrics.Extensions.Reporting.InfluxDB;
+using App.Metrics.Extensions.Reporting.InfluxDB.Client;
+
 namespace DockerDash
 {
     public partial class Startup
@@ -83,10 +88,41 @@ namespace DockerDash
             }
 
             services.AddSingleton<DockerService>();
+
+            services.AddMetrics(options=> {
+                options.DefaultContextLabel = "DockerDash";
+
+                options.WithGlobalTags((globalTags, envInfo) =>
+                {
+                    globalTags.Add("host", envInfo.HostName);
+                    globalTags.Add("machine_name", envInfo.MachineName);
+                    globalTags.Add("app_name", envInfo.EntryAssemblyName);
+                    globalTags.Add("app_version", envInfo.EntryAssemblyVersion);
+                });
+            })
+            .AddReporting(factory =>{
+                        factory.AddInfluxDb(
+                            new InfluxDBReporterSettings
+                            {
+                                HttpPolicy = new HttpPolicy
+                                {
+                                    FailuresBeforeBackoff = 3,
+                                    BackoffPeriod = TimeSpan.FromSeconds(30),
+                                    Timeout = TimeSpan.FromSeconds(3)
+                                },
+                                InfluxDbSettings = new InfluxDBSettings(Configuration.GetValue<string>("InfluxDBName"), Configuration.GetValue<Uri>("InfluxDBUrl")),
+                                ReportInterval = TimeSpan.FromSeconds(5)
+                            });
+                    })
+            .AddJsonSerialization()
+            .AddHealthChecks()
+            .AddMetricsMiddleware(Configuration.GetSection("AspNetMetrics"));
+
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, DockerService dockerService)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, IApplicationLifetime lifetime, DockerService dockerService)
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
@@ -123,6 +159,11 @@ namespace DockerDash
 
             app.UseStaticFiles();
             app.UseWebSockets();
+
+            app.UseMetrics();
+            app.UseMetricsReporting(lifetime);
+
+
             app.UseSignalR();
 
             ConfigureAuth(app);
