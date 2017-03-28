@@ -51,6 +51,10 @@
     <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="1.1.2" />
     <PackageReference Include="Microsoft.AspNetCore.Server.Kestrel" Version="1.1.1" />
   </ItemGroup>
+  
+  <ItemGroup>    
+    <DotNetCliToolReference Include="BundlerMinifier.Core" Version="2.4.337" />
+  </ItemGroup>
 
   <Target Name="PrepublishScript" BeforeTargets="PrepareForPublish">
     <Exec Command="dotnet bundle" />
