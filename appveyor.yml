@@ -7,9 +7,6 @@ branches:
 nuget:
   disable_publish_on_pr: true
 before_build:
-- nuget restore
-- dotnet restore
-build_script:
-- ps: .\Build.ps1
+ - dotnet restore
 build:
   verbosity: normal
