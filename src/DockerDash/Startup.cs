@@ -41,6 +41,8 @@ namespace DockerDash
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddLogging();
+
             // Add framework services.
             services.AddMvc();
 
@@ -91,7 +93,8 @@ namespace DockerDash
 
             services.AddMetrics(options=> {
                 options.DefaultContextLabel = "DockerDash";
-
+                options.MetricsEnabled = true;
+                options.ReportingEnabled = true;
                 options.WithGlobalTags((globalTags, envInfo) =>
                 {
                     globalTags.Add("host", envInfo.HostName);
