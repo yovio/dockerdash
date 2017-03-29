@@ -209,7 +209,14 @@ namespace DockerDash
 
         public async Task<IList<IDictionary<string,string>>> RemoveImage(string imageId)
         {
-            return await docker.Images.DeleteImageAsync(imageId, new ImageDeleteParameters() { PruneChildren = false, Force = false });
+            try
+            {
+                return await docker.Images.DeleteImageAsync(imageId, new ImageDeleteParameters() { PruneChildren = false, Force = false });
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
         }
         #endregion
 

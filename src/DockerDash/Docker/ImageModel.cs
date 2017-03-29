@@ -9,6 +9,9 @@ namespace DockerDash
     public class ImageModel
     {
         public string Id { get; set; }
+
+        public string ShortId => Id?.Substring(7, 12);
+
         public string ParentID { get; set; }
         public string Name { get; set; }
         public string RepoTags { get; set; }

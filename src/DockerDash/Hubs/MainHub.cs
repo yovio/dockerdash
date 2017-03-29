@@ -42,6 +42,16 @@ namespace DockerDash
             return await _dockerService.GetImageList();
         }
 
+        public async Task<IList<IDictionary<string, string>>> RemoveImage(string imageId)
+        {
+            return await _dockerService.RemoveImage(imageId);
+        }
+
+        public async Task<dynamic> GetContainerStats(string id)
+        {
+            return await _dockerService.GetContainerStats(id);
+        }
+
         public async Task<dynamic> GetNetworkList()
         {
             return await _dockerService.GetNetworkList();
@@ -57,9 +67,6 @@ namespace DockerDash
             return await _dockerService.GetContainerLogs(id, tail);
         }
 
-        public async Task<dynamic> GetContainerStats(string id)
-        {
-            return await _dockerService.GetContainerStats(id);
-        }
+        
     }
 }
