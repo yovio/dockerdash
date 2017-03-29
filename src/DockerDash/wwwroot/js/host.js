@@ -76,12 +76,6 @@
 
             if (this.timer) clearTimeout(this.timer);
             this.timer = setTimeout(this.loadData, 30000);
-        },
-        route: {
-            deactivate: function () {
-                if (this.timer) clearTimeout(this.timer);
-                if (this.debouncer) clearTimeout(this.debouncer);
-            }
         }
     },
     route: {
