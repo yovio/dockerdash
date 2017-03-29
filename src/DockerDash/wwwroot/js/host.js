@@ -76,6 +76,9 @@
 
             if (this.timer) clearTimeout(this.timer);
             this.timer = setTimeout(this.loadData, 30000);
+        },
+        deleteImage: function (imageId) {
+            alert(imageId)
         }
     },
     route: {

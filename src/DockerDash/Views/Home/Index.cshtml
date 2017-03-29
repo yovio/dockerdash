@@ -182,10 +182,12 @@
                                         <a>
                                             <span class="list-item list-item-title">
                                                 <span class="glyphicon glyphicon-book"></span>
-                                                <span class="name"><strong>{{ item.Name }}</strong></span>
+                                                <span class="name"><strong>{{ item.Name }}</strong></span>                                                
+                                                <span class="list-item-link" v-on:click="DeleteImage(item.Id)">Delete</span>
                                             </span>
                                             <span class="row list-item list-item-body">
                                                 <span class="col-xs-9 left">
+                                                    <span><small>ID:</small> {{ item.Id }}</span>
                                                     <span><small>RepoTags:</small> {{ item.RepoTags }}</span>
                                                     <span><small>Size:</small> {{ item.Size }}</span>
                                                     <span><small>VirtualSize:</small> {{ item.VirtualSize }}</span>

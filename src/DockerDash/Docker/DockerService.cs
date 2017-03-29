@@ -146,6 +146,7 @@ namespace DockerDash
 
         }
 
+        #region Images
         public async Task<List<ImageModel>> GetImageList()
         {
             try
@@ -204,7 +205,13 @@ namespace DockerDash
                 _logger.LogError(1001, ex, ex.Message);
                 throw;
             }
+        } 
+
+        public async Task<IList<IDictionary<string,string>>> RemoveImage(string imageId)
+        {
+            return await docker.Images.DeleteImageAsync(imageId, new ImageDeleteParameters() { PruneChildren = false, Force = false });
         }
+        #endregion
 
         public async Task<dynamic> GetContainerStats(string id)
         {
