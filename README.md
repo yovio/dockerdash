@@ -1,7 +1,8 @@
 # dockerdash
 
-[![Build status](https://ci.appveyor.com/api/projects/status/q52dkb8di4578mh9?svg=true)](https://ci.appveyor.com/project/stefanprodan/dockerdash)
-[![Layers](https://images.microbadger.com/badges/image/stefanprodan/dockerdash.svg)](https://microbadger.com/images/stefanprodan/dockerdash)
+[![Build status](https://ci.appveyor.com/api/projects/status/8l78yx2m55f8mnrf?svg=true)](https://ci.appveyor.com/project/yovio/dockerdash)
+[![Layers](https://images.microbadger.com/badges/image/yovio/dockerdash.svg)](https://microbadger.com/images/yovio/dockerdash)
+[![Version](https://images.microbadger.com/badges/version/yovio/dockerdash.svg)](https://microbadger.com/images/yovio/dockerdash)
 
 Docker dashboard is compatible with Docker v1.12.x
 
