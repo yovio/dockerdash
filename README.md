@@ -11,14 +11,14 @@ Docker dashboard is compatible with Docker v1.12.x
 Connect to Docker remote API by mounting the unix socket:
 
 ```
-docker pull stefanprodan/dockerdash:latest
+docker pull yovio/dockerdash:latest
 
 docker run -d -p 5050:5050 \
 -v /var/run/docker.sock:/var/run/docker.sock \
 -e DOCKERDASH_USER='admin' \
 -e DOCKERDASH_PASSWORD='changeme' \
 --name dockerdash \
-stefanprodan/dockerdash
+yovio/dockerdash
 ```
 
 Connect to a Docker remote API via TCP:
@@ -29,7 +29,7 @@ docker run -d -p 5050:5050 \
 -e DOCKERDASH_USER='admin' \
 -e DOCKERDASH_PASSWORD='changeme' \
 --name dockerdash \
-stefanprodan/dockerdash
+yovio/dockerdash
 ```
 
 ### Features

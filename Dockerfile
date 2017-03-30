@@ -1,6 +1,6 @@
 FROM microsoft/aspnetcore:1.1
 
-MAINTAINER Stefan Prodan
+MAINTAINER Yovi Oktofianus
 
 # Set Docker remote API address
 ENV DOCKER_REMOTE_API="unix:///var/run/docker.sock"
