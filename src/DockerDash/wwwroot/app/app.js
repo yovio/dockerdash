@@ -219,7 +219,7 @@ var host = Vue.extend({
             if (this.timer) clearTimeout(this.timer);
             this.timer = setTimeout(this.loadData, 30000);
         },
-        deleteImage: function (imageId) {            
+        deleteImage: function (imageId) {
             var result = this.mainHub.server.removeImage(imageId);
             alert(result);
         }

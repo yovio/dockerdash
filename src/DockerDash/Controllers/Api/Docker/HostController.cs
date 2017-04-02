@@ -4,18 +4,30 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace DockerDash.Controllers.Api.Docker
 {
+    [Authorize]
     [Produces("application/json")]
-    [Route("api/docker/[controller]")]
+    [Route("api/docker/host")]
     public class HostController : Controller
     {
+        private DockerService _dockerService;
+
+        public HostController(DockerService dockerService)
+        {
+            _dockerService = dockerService;
+        }
         // GET: api/Host
         [HttpGet]
-        public IEnumerable<string> Get()
+        public HostModel Get()
         {
-            return new string[] { "value1", "value2" };
+            var task = _dockerService.GetHostInfo();
+            if (task.Wait(10000))
+                return task.Result;
+            else
+                return null;
         }
 
         // GET: api/Host/5
