@@ -106,6 +106,9 @@ namespace DockerDash
                         {
                             cont.Ports = c.Ports.Select(n => n.PrivatePort.ToString() + "/" + n.Type).Aggregate((current, next) => current + ", " + next);
                         }
+
+                        dynamic stat = this.GetContainerStats(c.ID);
+                        cont.MemoryUsage = stat.memory.label;
                     }
 
                     return cont;
